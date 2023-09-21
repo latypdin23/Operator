@@ -41,7 +41,7 @@ namespace Operator
             Console.Write("Введите второе число: ");
             second = Convert.ToDouble(Console.ReadLine());
             Console.Write("Введите оператор (+, -, *, /): ");
-            op = (char)Console.Read();
+            op = (char)Console.ReadLine()[0];
 
             switch (op)
             {
@@ -73,7 +73,31 @@ namespace Operator
         }
         static void ExampleBreak()
         {
+            while (true)
+            {
+                Console.WriteLine("Введите число для вычисления квадратного корня (нажмите E или e для выхода): ");
 
+                string num=Console.ReadLine();
+
+                if (num == "E" || num == "e")
+                {
+                    break;
+                }
+
+                // convert the input string to a double
+                double number = Convert.ToDouble(num);
+
+                // start the new iteration if the number is negative
+                if (number < 0)
+                {
+                    Console.WriteLine("Введите число");
+                    continue;
+                }
+
+                Console.WriteLine($"Квадратный корень: {Math.Sqrt(number): 0.##}");
+
+
+            }
         }
         static void ExampleContinue()
         {
@@ -88,15 +112,16 @@ namespace Operator
         }
         static void Main(string[] args)
         {
-            Console.WriteLine("Пример if...else");
+            /*Console.WriteLine("Пример if...else");
             Console.WriteLine("Проверка на четность");
-            ExampleIf();
+            ExampleIf();*/
             Console.WriteLine("\nПример switch");
             Console.WriteLine("Калькулятор:");
             ExampleSwitch();
 
             Console.WriteLine("\nПример break");
-            Console.WriteLine("\nПроверка на то имеется ли в последовательности цифра 5");
+            Console.WriteLine("Квадратный корень из числа(плохой способ)");
+            ExampleBreak();
 
             Console.WriteLine("\nПример continue");
             Console.WriteLine("Вывод на экран последовательность от 1 до 10, но вывести только нечетные");
