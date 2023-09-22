@@ -8,6 +8,42 @@ namespace Operator
 {
     internal class Program
     {
+        static void NavigateMenu(int numOfTask)
+        {
+            switch(numOfTask)
+            {
+                case 1:
+                    Console.WriteLine("Пример if...else");
+                    Console.WriteLine("Проверка на четность");
+                    ExampleIf();
+                    break;
+                case 2:
+                    Console.WriteLine("\nПример switch");
+                    Console.WriteLine("Калькулятор:");
+                    ExampleSwitch();
+                    break;
+                case 3:
+                    Console.WriteLine("\nПример контролируемого цикла");
+                    Console.WriteLine("Квадратный корень из числа");
+                    ExampleDoWhile();
+                    break;
+                case 4:
+                    Console.WriteLine("\nПример continue");
+                    Console.WriteLine("Вывод на экран последовательность от 1 до 10, но вывести только нечетные");
+                    ExampleContinue();
+                    break;
+                case 5:
+                    Console.WriteLine("\nПример goto");
+                    Console.WriteLine("Goto");
+                    ExampleGoto();
+                    break;
+
+                default:
+                    Console.WriteLine("Примера с таким номером не существует");
+                    break;
+
+            }
+        }
         static void ExampleIf()
         {
             Console.WriteLine("Введите целое число: ");
@@ -71,33 +107,27 @@ namespace Operator
 
             }
         }
-        static void ExampleBreak()
+        static void ExampleDoWhile()
         {
-            while (true)
+            string input = String.Empty;
+            do
             {
                 Console.WriteLine("Введите число для вычисления квадратного корня (нажмите E или e для выхода): ");
+                input = Console.ReadLine();
 
-                string num=Console.ReadLine();
-
-                if (num == "E" || num == "e")
+                if (double.TryParse(input, out double number))
                 {
-                    break;
+                    if (number >= 0)
+                    {
+                        Console.WriteLine($"Квадратный корень: {Math.Sqrt(number): 0.##}");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Введите число больше 0");
+                    }
                 }
-
-                // convert the input string to a double
-                double number = Convert.ToDouble(num);
-
-                // start the new iteration if the number is negative
-                if (number < 0)
-                {
-                    Console.WriteLine("Введите число");
-                    continue;
-                }
-
-                Console.WriteLine($"Квадратный корень: {Math.Sqrt(number): 0.##}");
-
-
             }
+            while (!(input.Equals("E") || input.Equals("e")));
         }
         static void ExampleContinue()
         {
@@ -110,25 +140,43 @@ namespace Operator
                 Console.WriteLine($"{i}");
             }
         }
+        static void ExampleGoto()
+        {
+            int counter = 0;
+
+        Label:
+            counter++;
+            Console.WriteLine("Counter = {0}", counter);
+
+            if (counter < 3)
+            {
+                goto Label;
+            }
+
+            Console.WriteLine("End");
+        }
         static void Main(string[] args)
         {
-            /*Console.WriteLine("Пример if...else");
-            Console.WriteLine("Проверка на четность");
-            ExampleIf();*/
-            Console.WriteLine("\nПример switch");
-            Console.WriteLine("Калькулятор:");
-            ExampleSwitch();
+            string input = String.Empty;
+            do
+            {
+                Console.WriteLine("Введите номер примера:\n 1. If...else,\n " +
+                "2. Switch,\n " +
+                "3.Контролируемый цикл, \n " +
+                "4.Continue, \n " +
+                "5.Goto\nДля выхода нажмите e или E");
 
-            Console.WriteLine("\nПример break");
-            Console.WriteLine("Квадратный корень из числа(плохой способ)");
-            ExampleBreak();
-
-            Console.WriteLine("\nПример continue");
-            Console.WriteLine("Вывод на экран последовательность от 1 до 10, но вывести только нечетные");
-            ExampleContinue();
-
-            Console.WriteLine("\nПример goto");
-            Console.WriteLine("\nПример Exception");
+                input = Console.ReadLine();
+                if (int.TryParse(input, out int result))
+                {
+                    NavigateMenu(result);
+                }
+                else
+                {
+                    Console.WriteLine("Не удалось преобразовать входные параметры");
+                }
+            }
+            while (!(input.Equals("E") || input.Equals("e")));
             Console.WriteLine("Для выхода нажмите любую клавишу...");
             Console.ReadKey();
         }
